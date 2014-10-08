@@ -17,7 +17,7 @@ trait HasDateTime
 
         $this->_dateTime = new \DateTime;
 
-        $this->_dateTime->setTimestamp(strtotime($this->getValue()));
+        $this->_dateTime->setTimestamp(strtotime($value));
     }
 
     /**

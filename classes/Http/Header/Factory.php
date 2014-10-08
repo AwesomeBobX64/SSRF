@@ -52,8 +52,10 @@ class Factory
             case Entity::FIELD_CONTENT_TYPE:
 				// FALL THROUGH
             case Entity::FIELD_EXPIRES:
+				// FALL THROUGH
+            case Entity::FIELD_LAST_MODIFIED:
 
-                return new Entity($field, $value);
+                return Entity\Factory::create($field, $value);
 
                 break;
 

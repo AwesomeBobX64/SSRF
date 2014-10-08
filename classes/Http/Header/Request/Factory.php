@@ -39,6 +39,24 @@ class Factory
 
                 break;
 
+            case \Http\Header\Request::FIELD_IF_MODIFIED_SINCE:
+
+                return new IfModifiedSince($field, $value);
+
+                break;
+
+            case \Http\Header\Request::FIELD_IF_UNMODIFIED_SINCE:
+
+                return new IfUnmodifiedSince($field, $value);
+
+                break;
+
+            case \Http\Header\Request::FIELD_TE:
+
+                return new TE($field, $value);
+
+                break;
+
             default:
 
                 return new \Http\Header\Request($field, $value);
