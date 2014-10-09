@@ -2,7 +2,7 @@
 
 namespace Http\Header\Entity;
 
-class LastModified extends \Http\Header\General
+class LastModified extends \Http\Header\Entity
 {
     use \Http\Header\HasDateTime;
 }
