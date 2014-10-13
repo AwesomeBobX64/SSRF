@@ -43,6 +43,6 @@ trait HasPriorityQueue
      */
     public function getList()
     {
-        $this->_priorityQueue;
+        return $this->_priorityQueue;
     }
 }

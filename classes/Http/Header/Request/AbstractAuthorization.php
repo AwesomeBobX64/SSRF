@@ -7,7 +7,8 @@ abstract class AbstractAuthorization extends \Http\Header\Request
     protected $_scheme;
     protected $_credentials;
 
-    const SCHEME_BASIC = 'BASIC';
+    const SCHEME_BASIC  = 'BASIC';
+    const SCHEME_DIGEST = 'DIGEST';
 
     protected function _setValue($value)
     {

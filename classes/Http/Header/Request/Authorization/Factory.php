@@ -20,6 +20,12 @@ class Factory
                 return new Basic($field, $value);
 
                 break;
+
+            case \Http\Header\Request\AbstractAuthorization::SCHEME_DIGEST:
+
+                return new Digest($field, $value);
+
+                break;
         }
     }
 

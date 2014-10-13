@@ -39,6 +39,12 @@ class Factory
 
                 break;
 
+            case \Http\Header\Request::FIELD_AUTHORIZATION:
+
+                return Authorization\Factory::create($field, $value);
+
+                break;
+
             case \Http\Header\Request::FIELD_IF_MODIFIED_SINCE:
 
                 return new IfModifiedSince($field, $value);

@@ -4,15 +4,17 @@ require '../includes/bootstrap.php';
 
 $request = \Http\Message\Request::create();
 
-foreach ($request->getHeaders() as $field => $header)
+foreach ($request->getHeaders() as $index => $header)
 {
-    if ($field == \Http\Header\Request::FIELD_ACCEPT)
+    if ($index == \Http\Header\Request::FIELD_AUTHORIZATION)
     {
-        $contentTypes = $header->getList();
+        $password    = 'Circle Of Life';
+        $method      = $request->getMethod();
+        $credentials = $header->getCredentials();
 
-        while ($contentTypes->valid())
+        if ($credentials['username'] == 'Mufasa')
         {
-            var_dump($contentTypes->extract());
+            $authorized = $header->isAuthorized($password, $method);
         }
     }
 }
