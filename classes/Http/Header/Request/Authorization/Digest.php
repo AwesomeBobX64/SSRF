@@ -22,7 +22,7 @@ class Digest extends \Http\Header\Request\AbstractAuthorization
 
     protected function _splitValueIntoPieces($value)
     {
-        preg_match_all('/,?(?P<key>[^=\s]+)\s*?=[\s*]?"?(?P<value>[^\s,"]+)"?/', $value, $pieces);
+        preg_match_all('/,?(?P<key>[^=\s]+)\s*?=\s*?"?(?P<value>[^",]*)"?/', $value, $pieces);
 
         return $pieces;
     }
