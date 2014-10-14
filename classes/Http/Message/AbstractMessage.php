@@ -94,6 +94,17 @@ abstract class AbstractMessage
         return $this->_headers;
     }
 
+    /**
+     * Returns the header(s) with the given field.
+     *
+     * @param string $field
+     * @return array|\Http\Header\AbstractHeader
+     */
+    public function getHeader($field)
+    {
+        return $this->_headers[$field];
+    }
+
 	/**
      * Return the request body.
      *
