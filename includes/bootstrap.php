@@ -54,3 +54,8 @@ spl_autoload_register(function ($object)
 
     return FALSE;
 });
+
+function isset_or($var = NULL, $or = NULL)
+{
+    return isset($var) ? $var : $or;
+}

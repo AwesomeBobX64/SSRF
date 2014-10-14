@@ -57,7 +57,6 @@ class Digest extends \Http\Header\Request\AbstractAuthorization
                 $response = $this->_hashArray([$ha1, $credentials['nonce'], $ha2]);
 
                 break;
-
         }
 
         return ($response == $credentials['response']);

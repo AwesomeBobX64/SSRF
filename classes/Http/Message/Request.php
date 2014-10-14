@@ -109,10 +109,16 @@ class Request extends AbstractMessage
      *
      * @return Request
      */
-    public static function create()
+    public static function create($method = NULL, $uri = NULL, $protocolVersion = NULL, array $headers = NULL,
+        $body = NULL)
     {
-        return new static($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI'], $_SERVER['SERVER_PROTOCOL'],
-                static::_getHeadersFromRequest(), static::_getBodyFromRequest());
+        $method          = isset_or($method, $_SERVER['REQUEST_METHOD']);
+        $uri             = isset_or($uri, $_SERVER['REQUEST_URI']);
+        $protocolVersion = isset_or($protocolVersion, $_SERVER['SERVER_PROTOCOL']);
+        $headers         = isset_or($headers, static::_getHeadersFromRequest());
+        $body            = isset_or($body, static::_getBodyFromRequest());
+
+        return new static($method, $uri, $protocolVersion, $headers, $body);
     }
 
     /**
