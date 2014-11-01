@@ -43,9 +43,9 @@ class Digest extends \Http\Header\Request\AbstractAuthorization
 
     protected function _getResponse($credentials, $qop, $ha1, $ha2, $nonce)
     {
-        $nonceCount = isset_or($credentials['nc']);
-        $cnonce     = isset_or($credentials['cnonce']);
-        $response   = Digest\Strategy\Response::getStrategy($qop, $ha1, $ha2, $nonce, $nonceCount, $cnonce);
+        $nc       = isset_or($credentials['nc']);
+        $cnonce   = isset_or($credentials['cnonce']);
+        $response = Digest\Strategy\Response::getStrategy($qop, $ha1, $ha2, $nonce, $nc, $cnonce);
 
         return $response->calculateResponse();
     }

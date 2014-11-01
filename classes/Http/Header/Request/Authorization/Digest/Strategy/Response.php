@@ -14,11 +14,11 @@ class Response
      * @param string $ha1 HA1 in Digest Authentication
      * @param string $ha2 HA2 in Digest Authentication
      * @param string $nonce A server generated random string.
-     * @param string $nonceCount A request counter, specified by the client.
+     * @param string $nc A request counter, specified by the client.
      * @param string $cnonce A client generated random string.
      * @return Response\iStrategy
      */
-    public static function getStrategy($qop, $ha1, $ha2, $nonce, $nonceCount = NULL, $cnonce = NULL)
+    public static function getStrategy($qop, $ha1, $ha2, $nonce, $nc = NULL, $cnonce = NULL)
     {
         switch (strtoupper($qop))
         {
@@ -26,7 +26,7 @@ class Response
                 // FALL THROUGH
             case static::ALGORITHM_AUTH_INIT:
 
-                return new Response\Auth($ha1, $ha2, $nonce, $nonceCount, $cnonce, $qop);
+                return new Response\Auth($ha1, $ha2, $nonce, $nc, $cnonce, $qop);
 
                 break;
 
