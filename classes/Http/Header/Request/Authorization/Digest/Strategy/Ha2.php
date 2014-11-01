@@ -1,8 +1,8 @@
 <?php
 
-namespace Http\Header\Request\Authorization\Digest\Strategy\Ha2;
+namespace Http\Header\Request\Authorization\Digest\Strategy;
 
-class Context
+class Ha2
 {
     const ALGORITHM_AUTH      = 'AUTH';
     const ALGORITHM_AUTH_INIT = 'AUTH-INIT';
@@ -14,7 +14,7 @@ class Context
      * @param string $method The request method.
      * @param string $uri The path or single URI the authorization is good for.
      * @param string $body The body of the request.
-     * @return iStrategy A class which implements the iStrategy interface.
+     * @return Ha2\iStrategy
      */
     public static function getStrategy($qop, $method, $uri, $body = NULL)
     {
@@ -22,7 +22,7 @@ class Context
         {
             case static::ALGORITHM_AUTH_INIT:
 
-                return new AuthInit($method, $uri, $body);
+                return new Ha2\AuthInit($method, $uri, $body);
 
                 break;
 
@@ -30,7 +30,7 @@ class Context
                 // FALL THROUGH
             default:
 
-                return new Auth($method, $uri);
+                return new Ha2\Auth($method, $uri);
 
                 break;
         }

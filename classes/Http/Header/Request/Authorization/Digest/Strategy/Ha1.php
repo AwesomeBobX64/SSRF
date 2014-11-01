@@ -1,8 +1,8 @@
 <?php
 
-namespace Http\Header\Request\Authorization\Digest\Strategy\Ha1;
+namespace Http\Header\Request\Authorization\Digest\Strategy;
 
-class Context
+class Ha1
 {
     const ALGORITHM_MD5      = 'MD5';
     const ALGORITHM_MD5_SESS = 'MD5-SESS';
@@ -16,7 +16,7 @@ class Context
      * @param string $password Used for authorization.
      * @param string $nonce A server generated random string.
      * @param string $cnonce A client generated random string.
-     * @return iStrategy A class which implements the iStrategy interface.
+     * @return Ha1\iStrategy
      */
     public static function getStrategy($algorithm, $username, $realm, $password, $nonce = NULL, $cnonce = NULL)
     {
@@ -24,7 +24,7 @@ class Context
         {
             case static::ALGORITHM_MD5_SESS:
 
-                return new Md5Sess($username, $realm, $password, $nonce, $cnonce);
+                return new Ha1\Md5Sess($username, $realm, $password, $nonce, $cnonce);
 
                 break;
 
@@ -32,7 +32,7 @@ class Context
                 // FALL THROUGH
             default:
 
-                return new Md5($username, $realm, $password);
+                return new Ha1\Md5($username, $realm, $password);
 
                 break;
         }
