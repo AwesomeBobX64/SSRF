@@ -99,9 +99,15 @@ abstract class AbstractMessage
      *
      * @param string $field
      * @return array|\Http\Header\AbstractHeader
+     * @throws \OutOfBoundsException Thrown when a non-existent header is accessed.
      */
     public function getHeader($field)
     {
+        if (!array_key_exists($field, $this->_headers))
+        {
+            throw new \OutOfBoundsException('Unknown header: ' . $field);
+        }
+
         return $this->_headers[$field];
     }
 
