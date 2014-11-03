@@ -21,43 +21,22 @@ class Digest extends \Http\Header\Request\AbstractAuthorization
         return $credentials;
     }
 
-    protected function _getHa1($credentials, $password)
-    {
-        $algorithm = isset_or($credentials['algorithm']);
-        $username  = isset_or($credentials['username']);
-        $realm     = isset_or($credentials['realm']);
-        $nonce     = isset_or($credentials['nonce']);
-        $cnonce    = isset_or($credentials['cnonce']);
-        $ha1       = Digest\Strategy\Ha1::getStrategy($algorithm, $username, $realm, $password, $nonce, $cnonce);
-
-        return $ha1->calculateHa1();
-    }
-
-    protected function _getHa2($credentials, $qop, $method, $body = NULL)
-    {
-        $uri = isset_or($credentials['uri']);
-        $ha2 = Digest\Strategy\Ha2::getStrategy($qop, $method, $uri, $body);
-
-        return $ha2->calculateHa2();
-    }
-
-    protected function _getResponse($credentials, $qop, $ha1, $ha2, $nonce)
-    {
-        $nc       = isset_or($credentials['nc']);
-        $cnonce   = isset_or($credentials['cnonce']);
-        $response = Digest\Strategy\Response::getStrategy($qop, $ha1, $ha2, $nonce, $nc, $cnonce);
-
-        return $response->calculateResponse();
-    }
-
+    /**
+     * Accepts a password, method, and optional message body to determine if digest authentication is authorized.
+     *
+     * @param string $password A password for authentication.
+     * @param string $method A request method.
+     * @param string $body An optional message body.
+     * @return boolean
+     */
     public function isAuthorized($password, $method, $body = NULL)
     {
         $credentials = $this->getCredentials();
         $qop         = isset_or($credentials['qop']);
-        $ha1         = $this->_getHa1($credentials, $password);
-        $ha2         = $this->_getHa2($credentials, $qop, $method, $body);
         $nonce       = isset_or($credentials['nonce']);
-        $response    = $this->_getResponse($credentials, $qop, $ha1, $ha2, $nonce);
+        $ha1         = Digest\Strategy\Ha1::getHa1($credentials, $password, $nonce);
+        $ha2         = Digest\Strategy\Ha2::getHa2($credentials, $qop, $method, $body);
+        $response    = Digest\Strategy\Response::getResponse($credentials, $qop, $ha1, $ha2, $nonce);
 
         return ($response == $credentials['response']);
     }

@@ -2,6 +2,8 @@
 
 namespace Http\Header\Request\Authorization\Digest\Strategy;
 
+use \Http\Exception;
+
 class Ha2
 {
     const ALGORITHM_AUTH      = 'AUTH';
@@ -14,25 +16,41 @@ class Ha2
      * @param string $method The request method.
      * @param string $uri The path or single URI the authorization is good for.
      * @param string $body The body of the request.
+     * @throws \UnexpectedValueException Thrown if an unknown, non NULL qop value is passed.
      * @return Ha2\iStrategy
      */
-    public static function getStrategy($qop, $method, $uri, $body = NULL)
+    protected static function _getStrategy($qop, $method, $uri, $body = NULL)
     {
-        switch (strtoupper($qop))
+        $qopUpper = strtoupper($qop);
+
+        if (is_null($qop) || static::ALGORITHM_AUTH == $qopUpper)
         {
-            case static::ALGORITHM_AUTH_INIT:
-
-                return new Ha2\AuthInit($method, $uri, $body);
-
-                break;
-
-            case static::ALGORITHM_AUTH:
-                // FALL THROUGH
-            default:
-
-                return new Ha2\Auth($method, $uri);
-
-                break;
+            return new Ha2\Auth($method, $uri);
         }
+        elseif (static::ALGORITHM_AUTH_INIT == $qopUpper)
+        {
+            return new Ha2\AuthInit($method, $uri, $body);
+        }
+        else
+        {
+            throw new \UnexpectedValueException('Unknown qop value:' . $qop, Exception::CODE_BAD_REQUEST);
+        }
+    }
+
+    /**
+     * Calculates HA1, a 32 character string for digest authentication.
+     *
+     * @param array $credentials An array of digest authentication credentials.
+     * @param string $qop A quality of protection value.
+     * @param string $method An HTTP request method.
+     * @param string $body An optional message body for calculating HA2.
+     * @return string
+     */
+    public static function getHa2($credentials, $qop, $method, $body = NULL)
+    {
+        $uri = isset_or($credentials['uri']);
+        $ha2 = static::_getStrategy($qop, $method, $uri, $body);
+
+        return $ha2->calculateHa2();
     }
 }

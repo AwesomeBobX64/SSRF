@@ -15,6 +15,11 @@ class Md5Sess extends Md5
         $this->_cnonce = $cnonce;
     }
 
+    /**
+     * Calculates HA1, a 32 character string for digest authentication.
+     *
+     * @return string
+     */
     public function calculateHa1()
     {
         return md5(parent::calculateHa1() . ':' . $this->_nonce . ':' . $this->_cnonce);

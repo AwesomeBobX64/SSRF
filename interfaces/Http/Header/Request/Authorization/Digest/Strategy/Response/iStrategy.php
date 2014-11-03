@@ -5,7 +5,7 @@ namespace Http\Header\Request\Authorization\Digest\Strategy\Response;
 interface iStrategy
 {
     /**
-     * Calculates HA1
+     * Calculates Response, a 32 character string for digest authentication.
      *
      * @return string
      */

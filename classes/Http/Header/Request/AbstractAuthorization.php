@@ -20,8 +20,6 @@ abstract class AbstractAuthorization extends \Http\Header\Request
         $this->_credentials = $this->_getCredentialsFromValue($pieces[1]);
     }
 
-    abstract protected function _getCredentialsFromValue($credentialString);
-
     public function getScheme()
     {
         return $this->_scheme;
@@ -31,4 +29,12 @@ abstract class AbstractAuthorization extends \Http\Header\Request
     {
         return $this->_credentials;
     }
+
+    /**
+     * Receives a credential string and returns an array of credentials.
+     *
+     * @param string $credentialString
+     * @return array
+     */
+    abstract protected function _getCredentialsFromValue($credentialString);
 }

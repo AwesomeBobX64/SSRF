@@ -13,6 +13,11 @@ class Auth implements iStrategy
         $this->_uri    = $uri;
     }
 
+    /**
+     * Calculates HA1, a 32 character string for digest authentication.
+     *
+     * @return string
+     */
     public function calculateHa2()
     {
         return md5($this->_method . ':' . $this->_uri);

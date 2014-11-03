@@ -13,6 +13,11 @@ class AuthInit extends Auth
         $this->_body = $body;
     }
 
+    /**
+     * Calculates HA1, a 32 character string for digest authentication.
+     *
+     * @return string
+     */
     public function calculateHa1()
     {
         return md5($this->_method . ':' . $this->_uri . ':' . md5($this->_body));

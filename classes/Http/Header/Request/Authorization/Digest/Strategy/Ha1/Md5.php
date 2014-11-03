@@ -15,6 +15,11 @@ class Md5 implements iStrategy
         $this->_password = $password;
     }
 
+    /**
+     * Calculates HA1, a 32 character string for digest authentication.
+     *
+     * @return string
+     */
     public function calculateHa1()
     {
         return md5($this->_username . ':' . $this->_realm . ':' . $this->_password);
