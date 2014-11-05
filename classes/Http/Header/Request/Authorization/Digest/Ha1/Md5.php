@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Header\Request\Authorization\Digest\Strategy\Ha1;
+namespace Http\Header\Request\Authorization\Digest\Ha1;
 
 class Md5 implements iStrategy
 {

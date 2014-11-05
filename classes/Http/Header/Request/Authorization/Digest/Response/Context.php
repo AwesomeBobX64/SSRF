@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Header\Request\Authorization\Digest\Strategy\Response;
+namespace Http\Header\Request\Authorization\Digest\Response;
 
 class Context
 {

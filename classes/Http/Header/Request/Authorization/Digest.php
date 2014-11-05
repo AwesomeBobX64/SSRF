@@ -32,11 +32,7 @@ class Digest extends \Http\Header\Request\AbstractAuthorization
     public function isAuthorized($password, $method, $body = NULL)
     {
         $credentials = $this->getCredentials();
-        $qop         = isset_or($credentials['qop']);
-        $nonce       = isset_or($credentials['nonce']);
-        $ha1         = Digest\Strategy\Ha1::getHa1($credentials, $password, $nonce);
-        $ha2         = Digest\Strategy\Ha2::getHa2($credentials, $qop, $method, $body);
-        $response    = Digest\Strategy\Response::getResponse($credentials, $qop, $ha1, $ha2, $nonce);
+        $response    = Digest\Strategy::getResponse($credentials, $password, $method, $body);
 
         return ($response == $credentials['response']);
     }

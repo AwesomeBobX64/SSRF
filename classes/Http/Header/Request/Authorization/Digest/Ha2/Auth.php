@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Header\Request\Authorization\Digest\Strategy\Ha2;
+namespace Http\Header\Request\Authorization\Digest\Ha2;
 
 class Auth implements iStrategy
 {
