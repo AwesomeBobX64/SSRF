@@ -63,4 +63,14 @@ class AbstractHeader
     {
         return $this->_value;
     }
+
+    /**
+     * Returns a string representation of the header (Field: Value).
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->getField() . ': ' . $this->getValue();
+    }
 }

@@ -4,6 +4,9 @@ namespace Http\Header\Request\Authorization;
 
 class Factory
 {
+    const SCHEME_BASIC  = 'BASIC';
+    const SCHEME_DIGEST = 'DIGEST';
+
     /**
      * Factory for Request\Authorization headers.
      *
@@ -15,13 +18,13 @@ class Factory
     {
         switch (static::_getSchemeFromValue($value))
         {
-            case \Http\Header\Request\AbstractAuthorization::SCHEME_BASIC:
+            case static::SCHEME_BASIC:
 
                 return new Basic($field, $value);
 
                 break;
 
-            case \Http\Header\Request\AbstractAuthorization::SCHEME_DIGEST:
+            case static::SCHEME_DIGEST:
 
                 return new Digest($field, $value);
 

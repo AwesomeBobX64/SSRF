@@ -115,7 +115,7 @@ class Factory
 				// FALL THROUGH
             case Response::FIELD_WWW_AUTHENTICATE:
 
-                return new Response($field, $value);
+                return Request\Factory::create($field, $value);
 
                 break;
 

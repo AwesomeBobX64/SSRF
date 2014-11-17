@@ -2,7 +2,7 @@
 
 namespace Http\Header\Request\Authorization;
 
-class Digest extends \Http\Header\Request\AbstractAuthorization
+class Digest extends AbstractAuthorization
 {
     const QOP_AUTH      = 'AUTH';
     const QOP_AUTH_INIT = 'AUTH-INIT';

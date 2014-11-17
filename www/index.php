@@ -2,15 +2,50 @@
 
 require '../includes/bootstrap.php';
 
-$request     = \Http\Message\Request::create();
-$header      = $request->getHeader(\Http\Header\Request::FIELD_AUTHORIZATION);
-$password    = 'Circle Of Life';
-$method      = $request->getMethod();
-$credentials = $header->getCredentials();
+$request = \Http\Message\Request::create();
+$header  = $request->getHeader(\Http\Header\Request::FIELD_AUTHORIZATION);
 
-if ($credentials['username'] == 'Mufasa')
+if ($header)
 {
-    $authorized = $header->isAuthorized($password, $method);
+    $password = 'Circle Of Life';
 
-    error_log(var_export($authorized, TRUE));
+    switch (strtoupper($header->getScheme()))
+    {
+        case \Http\Header\Request\Authorization\Factory::SCHEME_BASIC:
+
+            if ($header->isAuthorized($password))
+            {
+                die('Success!');
+            }
+            else
+            {
+                notAuthorized();
+            }
+
+            break;
+
+        case \Http\Header\Request\Authorization\Factory::SCHEME_DIGEST:
+
+            $method = $request->getMethod();
+
+            if ($header->isAuthorized($password, $method))
+            {
+                die('Success!');
+            }
+            else
+            {
+                notAuthorized();
+            }
+
+            break;
+    }
+
+    notAuthorized();
+}
+
+function notAuthorized()
+{
+    $wwwAuthHeader = \Http\Header\Response\WWWAuthenticate\Basic::create('Awesome Bob\'s World!');
+
+    header($wwwAuthHeader);
 }

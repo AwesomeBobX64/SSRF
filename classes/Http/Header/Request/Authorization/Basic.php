@@ -2,7 +2,7 @@
 
 namespace Http\Header\Request\Authorization;
 
-class Basic extends \Http\Header\Request\AbstractAuthorization
+class Basic extends AbstractAuthorization
 {
     protected function _getCredentialsFromValue($credentialString)
     {
@@ -10,5 +10,12 @@ class Basic extends \Http\Header\Request\AbstractAuthorization
         $pieces  = explode(':', $decoded);
 
         return ['userid' => $pieces[0], 'password' => $pieces[1]];
+    }
+
+    public function isAuthorized($password)
+    {
+        $credentials = $this->getCredentials();
+
+        return $credentials['password'] == $password;
     }
 }
