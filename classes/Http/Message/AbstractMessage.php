@@ -74,7 +74,7 @@ abstract class AbstractMessage
         $this->_body = $body;
     }
 
-	/**
+    /**
      * Returns the protocol version.
      *
      * @return string
@@ -84,7 +84,7 @@ abstract class AbstractMessage
         return $this->_protocolVersion;
     }
 
-	/**
+    /**
      * Returns the request headers.
      *
      * @return array
@@ -98,6 +98,7 @@ abstract class AbstractMessage
      * Returns the header(s) with the given field.
      *
      * @param string $field
+     *
      * @return array|\Http\Header\AbstractHeader|FALSE
      */
     public function getHeader($field)
@@ -110,7 +111,7 @@ abstract class AbstractMessage
         return $this->_headers[$field];
     }
 
-	/**
+    /**
      * Return the request body.
      *
      * @return mixed
